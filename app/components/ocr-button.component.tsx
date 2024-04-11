@@ -8,11 +8,11 @@ import { Loader } from 'react-feather';
 export type WorkerState = 'loading' | 'ready' | 'analyzing' | 'active';
 
 export interface OCRProps {
-    imageUrl: string;
+    imageRef: React.RefObject<HTMLImageElement>;
     onImageAnalyzed: (data: RecognizeResult) => void;
 }
 
-export function OCRButton({ imageUrl, onImageAnalyzed }: OCRProps) {
+export function OCRButton({ imageRef, onImageAnalyzed }: OCRProps) {
     const [worker, setWorker] = useState<Worker>();
     const [state, setState] = useState<WorkerState>('loading');
 
@@ -30,7 +30,16 @@ export function OCRButton({ imageUrl, onImageAnalyzed }: OCRProps) {
     async function btnHighlightClicked() {
         if (worker) {
             setState('analyzing');
-            const data = await worker.recognize(imageUrl);
+            const data = await worker.recognize(imageRef.current?.src || '', {
+
+            }, {
+                // text: false
+                // blocks: false,
+                // pdf: false,
+                // box: false,
+                // hocr: false,
+                // tsv: false
+            });
             if (data) {
                 onImageAnalyzed(data);
             }
