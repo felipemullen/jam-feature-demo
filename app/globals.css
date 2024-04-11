@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    color: rgb(0, 0, 0);
+    background: linear-gradient(to bottom, transparent, rgb(255, 255, 255))rgb(214, 219, 220);
+}
