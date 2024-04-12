@@ -26,7 +26,7 @@ export function HighlightFeature({ image }: HighlightFeatureProps) {
 
     return (
         <>
-            <div className="w-1/2 bg-gray-100 rounded border border-gray-400 p-6 mx-3">
+            <div className="w-1/2 bg-gray-100 rounded-lg border border-gray-400 p-6 mx-3">
                 <div className="w-full h-full relative">
                     {// eslint-disable-next-line @next/next/no-img-element
                     }<img ref={imageRef} className="absolute h-full w-full object-contain" src={image} alt="testing screenshot" />

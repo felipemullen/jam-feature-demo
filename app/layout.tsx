@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Header } from './components/header.component';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -8,8 +9,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <html lang="en">
-            <body>{children}</body>
+        <html lang="en" className="h-screen">
+            <body style={{ overscrollBehavior: 'none' }} className="h-screen">
+                <div className="h-full flex flex-col">
+                    <Header />
+                    {children}
+                </div>
+            </body>
         </html>
     );
 }

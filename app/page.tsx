@@ -2,9 +2,8 @@ import { HighlightFeature } from './components/highlighting/highlight-feature.co
 
 export default function HomePage() {
     return (
-        <main className="flex h-screen flex-col items-center justify-between p-12">
-            <h1 className="text-4xl font-extrabold text-gray-600 mb-6">Image Highlighting</h1>
-            <div className="h-full w-full flex text-sm">
+        <main className="h-full pb-6">
+            <div className="flex flex-grow h-full max-w-screen-2xl m-auto">
                 <HighlightFeature image="/image/screenshot.png" />
             </div>
         </main>
