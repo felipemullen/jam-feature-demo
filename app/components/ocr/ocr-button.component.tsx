@@ -13,7 +13,7 @@ const tesseractOutput: Partial<OutputFormats> = {
     tsv: false,
     osd: false,
     unlv: false
-}
+};
 
 export type WorkerState = 'loading' | 'ready' | 'analyzing' | 'active';
 
@@ -51,14 +51,14 @@ export function OCRButton({ imageRef, onImageAnalyzed }: OCRProps) {
     }
 
     switch (state) {
-        case 'loading':
-            return (<Button text="Loading..." overrides="bg-gray-200 text-gray-600" disabled isLoader />);
-        case 'ready':
-            return (<Button text="Analyze Image" overrides="bg-white text-gray-600 hover:text-red-400" onClick={btnHighlightClicked} />);
-        case 'analyzing':
-            return (<Button text="Analyzing..." overrides="bg-white" disabled isLoader />);
-        case 'active':
-            return (<Button text="Highlight Text" overrides="bg-gray-200 text-red-400 border-red-300" disabled />);
+    case 'loading':
+        return (<Button text="Loading..." overrides="bg-gray-200 text-gray-600" disabled isLoader />);
+    case 'ready':
+        return (<Button text="Analyze Image" overrides="bg-white text-gray-600 hover:text-red-400" onClick={btnHighlightClicked} />);
+    case 'analyzing':
+        return (<Button text="Analyzing..." overrides="bg-white" disabled isLoader />);
+    case 'active':
+        return (<Button text="Highlight Text" overrides="bg-gray-200 text-red-400 border-red-300" disabled />);
     }
 }
 

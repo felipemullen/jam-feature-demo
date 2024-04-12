@@ -46,7 +46,7 @@ export function HighlightFeature({ image }: HighlightFeatureProps) {
                                 <section className="animate-fadeIn">
                                     <h2 className="text-xl font-semibold text-gray-600 mb-4">1. Analyze the image</h2>
                                     <p className="text-gray-600 mb-4">
-                                        Click the button below to run OCR on the "screenshot" on the left.
+                                        Click the button below to run OCR on the &quot;screenshot&quot; on the left.
                                     </p>
                                     <OCRButton imageRef={imageRef} onImageAnalyzed={onDataAvailable} />
                                 </section>
@@ -66,7 +66,7 @@ export function HighlightFeature({ image }: HighlightFeatureProps) {
                                         <p className="text-gray-600 mb-4">
                                             The data below represents the highlighted areas:
                                         </p>
-                                        <pre className="text-wrap bg-gray-200 text-gray-600 border border-gray-300 rounded-lg p-3 overflow-auto">{JSON.stringify(userStrokes)}</pre>
+                                        <pre className="text-wrap max-h-64 bg-gray-200 text-gray-600 border border-gray-300 rounded-lg p-3 overflow-auto">{JSON.stringify(userStrokes)}</pre>
                                         <p className="text-gray-600 mt-4">
                                             This data could be used to export the highlighted areas separately from the image itself.
                                             The image could then be reconstructed as layers, which would allow future edits.
