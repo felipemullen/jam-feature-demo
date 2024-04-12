@@ -1,9 +1,19 @@
 'use client';
 
-import { PropsWithChildren, useEffect, useState } from 'react';
-import { RecognizeResult, createWorker, Worker } from 'tesseract.js';
-import { HighlighterIcon } from './highlighter-icon.component';
+import { useEffect, useState } from 'react';
+import { RecognizeResult, createWorker, Worker, OutputFormats } from 'tesseract.js';
+import { HighlighterIcon } from '../icon/highlighter-icon.component';
 import { Loader } from 'react-feather';
+
+const tesseractOutput: Partial<OutputFormats> = {
+    text: false,
+    pdf: false,
+    box: false,
+    hocr: false,
+    tsv: false,
+    osd: false,
+    unlv: false
+}
 
 export type WorkerState = 'loading' | 'ready' | 'analyzing' | 'active';
 
@@ -17,33 +27,26 @@ export function OCRButton({ imageRef, onImageAnalyzed }: OCRProps) {
     const [state, setState] = useState<WorkerState>('loading');
 
     useEffect(() => {
-        (async () => {
-            const worker = await createWorker('eng');
-            setWorker(worker);
-            setState('ready');
-        })();
+        if (!worker) {
+            (async () => {
+                const worker = await createWorker('eng');
+                setWorker(worker);
+                setState('ready');
+            })();
+        }
         return () => {
             worker?.terminate();
         };
-    }, []);
+    }, [worker]);
 
     async function btnHighlightClicked() {
         if (worker) {
             setState('analyzing');
-            const data = await worker.recognize(imageRef.current?.src || '', {
-
-            }, {
-                // text: false
-                // blocks: false,
-                // pdf: false,
-                // box: false,
-                // hocr: false,
-                // tsv: false
-            });
+            const data = await worker.recognize(imageRef.current?.src || '', {}, tesseractOutput);
             if (data) {
                 onImageAnalyzed(data);
+                setState('active');
             }
-            setState('active');
         }
     }
 

@@ -1,6 +1,6 @@
 import { RefObject, useEffect, useRef, useState } from 'react';
 import { Bbox, RecognizeResult } from 'tesseract.js';
-import { getContainedSize } from '../util/image-util';
+import { getContainedSize } from '../../util/image-util';
 
 export interface OCROverlayProps {
     imageRef: RefObject<HTMLImageElement>;

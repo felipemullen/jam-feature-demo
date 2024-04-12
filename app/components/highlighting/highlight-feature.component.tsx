@@ -1,7 +1,7 @@
 'use client';
 
 import { RecognizeResult } from 'tesseract.js';
-import { OCRButton } from './ocr-button.component';
+import { OCRButton } from '../ocr/ocr-button.component';
 import { useRef, useState } from 'react';
 import { HighlightOverlay } from './highlight-overlay.component';
 
@@ -21,7 +21,8 @@ export function HighlightFeature({ image }: HighlightFeatureProps) {
         <>
             <div className="w-1/2 bg-gray-100 rounded border border-gray-400 p-6 mx-3">
                 <div className="w-full h-full relative">
-                    <img ref={imageRef} className="absolute h-full w-full object-contain" src={image} alt="testing screenshot" />
+                    {// eslint-disable-next-line @next/next/no-img-element
+                    }<img ref={imageRef} className="absolute h-full w-full object-contain" src={image} alt="testing screenshot" />
                     <HighlightOverlay data={ocrData} imageRef={imageRef} />
                 </div>
             </div>

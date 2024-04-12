@@ -2,7 +2,7 @@
 
 import { useRef, useState, MouseEvent, useEffect, RefObject } from 'react';
 import { Bbox, RecognizeResult, Rectangle } from 'tesseract.js';
-import { getContainedSize } from '../util/image-util';
+import { getContainedSize } from '../../util/image-util';
 
 const HIGHLIGHT_SIZE = 15;
 const HIGHLIGHT_COLOR = 'rgb(255, 255, 0)';
@@ -60,7 +60,7 @@ export function HighlightOverlay({ imageRef, data }: HighlightOverlayProps) {
     }, [data, imageRef, canvasRef, wrapperRef]);
 
     function startDrawing(event: MouseEvent) {
-        if (canvasRef.current) {
+        if (data && canvasRef.current) {
             const canvas = canvasRef.current;
             const mouseX = event.clientX - canvas.getBoundingClientRect().left;
             const mouseY = event.clientY - canvas.getBoundingClientRect().top;
@@ -108,14 +108,14 @@ export function HighlightOverlay({ imageRef, data }: HighlightOverlayProps) {
     };
 
     return (
-        <div ref={wrapperRef} className="absolute border border-fuchsia-500">
+        <div ref={wrapperRef} className="absolute">
             <canvas
                 ref={canvasRef}
                 onMouseDown={startDrawing}
                 onMouseMove={drawLine}
                 onMouseUp={stopDrawing}
                 onMouseOut={stopDrawing}
-                className="opacity-35"
+                className="opacity-45"
                 style={{}}
             />
         </div>

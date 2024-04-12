@@ -1,4 +1,4 @@
-import { HighlightFeature } from './components/highlight-feature.component';
+import { HighlightFeature } from './components/highlighting/highlight-feature.component';
 
 export default function HomePage() {
     return (

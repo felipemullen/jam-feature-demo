@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-    title: 'Jamdotdev - Feature Demo',
+    title: 'Jamdotdev - Highlighter Feature Demo',
     description: 'A hopeful submission to the team at Jam for a developer position.',
 };
 
