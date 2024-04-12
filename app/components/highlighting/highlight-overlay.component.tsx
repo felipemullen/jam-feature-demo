@@ -4,15 +4,15 @@ import { useRef, useState, MouseEvent, useEffect, RefObject } from 'react';
 import { Bbox, RecognizeResult, Rectangle } from 'tesseract.js';
 import { getContainedSize } from '../../util/image-util';
 
-const HIGHLIGHT_SIZE = 15;
 const HIGHLIGHT_COLOR = 'rgb(255, 255, 0)';
 
 export interface HighlightOverlayProps {
     imageRef: RefObject<HTMLImageElement>;
     data?: RecognizeResult;
+    onDraw: (stroke: Rectangle) => void
 }
 
-export function HighlightOverlay({ imageRef, data }: HighlightOverlayProps) {
+export function HighlightOverlay({ imageRef, data, onDraw }: HighlightOverlayProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const wrapperRef = useRef<HTMLDivElement>(null);
     const [isDrawing, setIsDrawing] = useState(false);
@@ -48,7 +48,6 @@ export function HighlightOverlay({ imageRef, data }: HighlightOverlayProps) {
             const context = canvas.getContext('2d');
             if (context) {
                 context.clearRect(0, 0, canvas.width, canvas.height);
-                context.lineWidth = HIGHLIGHT_SIZE;
                 context.lineJoin = 'round';
                 context.lineCap = 'round';
                 context.strokeStyle = HIGHLIGHT_COLOR;
@@ -94,6 +93,14 @@ export function HighlightOverlay({ imageRef, data }: HighlightOverlayProps) {
 
                     setPrevX(mouseX);
                     setPrevY(mouseY);
+
+                    const stroke = {
+                        left: Math.min(prevX, mouseX),
+                        top: Math.min(prevY, mouseY),
+                        width: Math.abs(mouseX - prevX),
+                        height: Math.abs(mouseY - prevY)
+                    };
+                    onDraw(stroke);
                 } else {
                     setIsDrawing(false);
                 }
