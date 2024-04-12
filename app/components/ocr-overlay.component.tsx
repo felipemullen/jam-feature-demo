@@ -29,28 +29,22 @@ export function OCROverlay({ data, imageRef }: OCROverlayProps) {
             wrapperRef.current.style.width = `${width}px`;
             wrapperRef.current.style.height = `${height}px`;
 
-            const ocrItems = data.data.words.map((word, index) => (
-                <OCRItem key={index} {...getScaledSize(word.bbox, scalingRatio)} />
-            ));
+            const ocrItems = data.data.lines.map((line, index) => {
+                const size = getScaledSize(line.bbox, scalingRatio);
+
+                return (
+                    <div key={index} style={{ top: size.y, left: size.x, width, height }} className="cursor-highlight absolute border border-fuchsia-500" ></div>
+                );
+            });
 
             setOcrItems(ocrItems);
         }
     }, [data, imageRef, wrapperRef]);
 
     return (
-        <div ref={wrapperRef} className="absolute bg-red-200/20 text-white text-center border border-fuchsia-500">
+        <div ref={wrapperRef} className="absolute text-white text-center border border-fuchsia-500">
             {ocrItems}
         </div>
     );
 }
 
-interface OCRItemProps {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-}
-
-function OCRItem({ x, y, width, height }: OCRItemProps) {
-    return (<span style={{ top: y, left: x, width, height }} className="absolute border border-red-500"></span>);
-}
