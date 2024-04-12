@@ -37,11 +37,10 @@ export function getContainedSize(image: HTMLImageElement) {
  * Mostly notes for my future self:
  *
  * - Iterate over the data array
- * - If we aren't already looking at a stroke (startStroke), set it and continue to the next
- * - Calculate the distance between the current stroke and the next stroke
- *     - If the distance is less than the threshold, merge the two strokes
- *     - If the distance is greater than or equal to the threshold, add the size to the startStroke
- * - Set the previous stroke to the current stroke
+ * - If we aren't already looking at a stroke (startStroke), set it
+ * - Calculate the distance between the end of the start stroke and the next stroke
+ *     - If the distance is less than the threshold, merge the two strokes by adding the width
+ *     - If the distance is greater than or equal to the threshold, consider it completed and add it to the list
  */
 export function mergeStrokes(strokes: { left: number, top: number, width: number, height: number }[], maxDistanceThresholdPx = 25) {
     const mergedStrokes = [];
@@ -54,18 +53,18 @@ export function mergeStrokes(strokes: { left: number, top: number, width: number
         }
 
         // Eucledian distance calculation using top left points
-        const distance = Math.sqrt(Math.pow(currentStroke.left - startStroke.left, 2) + Math.pow(currentStroke.top - startStroke.top, 2));
+        const rightMostPoint = startStroke.left + startStroke.width;
+        const distance = Math.sqrt(Math.pow(currentStroke.left - rightMostPoint, 2) + Math.pow(currentStroke.top - startStroke.top, 2));
 
         // If the distance is less than the threshold, merge the two strokes
         if (distance < maxDistanceThresholdPx) {
             startStroke.width += currentStroke.width;
+            startStroke.height = Math.max(startStroke.height, currentStroke.height);
         } else {
             // If the distance is greater than or equal to the threshold, add it as it's own stroke
             mergedStrokes.push(startStroke);
             startStroke = { ...currentStroke };
-            startStroke = { ...currentStroke };
         }
-
     }
 
     // This is just a failsafe to make sure the last stroke is added

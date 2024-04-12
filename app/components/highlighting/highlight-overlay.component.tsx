@@ -98,7 +98,7 @@ export function HighlightOverlay({ imageRef, data, onDraw }: HighlightOverlayPro
                         left: Math.min(prevX, mouseX),
                         top: Math.min(prevY, mouseY),
                         width: Math.abs(mouseX - prevX),
-                        height: Math.abs(mouseY - prevY)
+                        height: Math.floor(intersectsOcrItem.height)
                     };
                     onDraw(stroke);
                 } else {
